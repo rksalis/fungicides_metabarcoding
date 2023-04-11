@@ -242,8 +242,8 @@ DFG.16S.Fto_CT1 <- readRDS("taxfilt/DFG.16S.Fto_CT1.rds")
 
 # Transform data to proportions 
 DFG.16S.Fto_CT1.prop <- transform_sample_counts(DFG.16S.Fto_CT1, function(otu) otu/sum(otu))
-write.csv(otu_table(DFG.16S.Fto_CT1.prop), file = "/Volumes/mana_seagate/WP1_analyses/bioinformatics/16S/taxfilt/asv_table_16S.Fto_CT1.prop.csv")
-write.csv(tax_table(DFG.16S.Fto_CT1.prop), file = "/Volumes/mana_seagate/WP1_analyses/bioinformatics/16S/taxfilt/tax_table_16S.Fto_CT1.prop.csv")
-write.csv(sample_data(DFG.16S.Fto_CT1.prop), file = "/Volumes/mana_seagate/WP1_analyses/bioinformatics/16S/taxfilt/sample_data_16S.Fto_CT1.prop.csv")
+write.csv(otu_table(DFG.16S.Fto_CT1.prop), file = "/Volumes/mana_seagate/WP1_analyses/bioinformatics/16S/taxfilt/asv_table_B16S.Fto_CT1.prop.csv")
+write.csv(tax_table(DFG.16S.Fto_CT1.prop), file = "/Volumes/mana_seagate/WP1_analyses/bioinformatics/16S/taxfilt/tax_table_B16S.Fto_CT1.prop.csv")
+write.csv(sample_data(DFG.16S.Fto_CT1.prop), file = "/Volumes/mana_seagate/WP1_analyses/bioinformatics/16S/taxfilt/sample_data_B16S.Fto_CT1.prop.csv")
 saveRDS(DFG.16S.Fto_CT1.prop, "/Volumes/mana_seagate/WP1_analyses/bioinformatics/16S/taxfilt/DFG.16S.Fto_CT1.prop.rds")
 
