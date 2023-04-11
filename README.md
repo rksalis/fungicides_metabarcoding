@@ -7,13 +7,16 @@ Created by Romana K. Salis
 
 Content Overview
 
+
 Rcode:
+
 1. DADA2_analysis_WP1_ITS.R - R code used for sequence processing of the ITS data using the DADA2 pipeline, subsetting the data and normalising read counts
 2. DADA2_analysis_WP1_16S.R - R code used for sequence processing of the 16S data
 
 3. data_analysis.R - R code used the data analyses of the 5 datasets, including: species richness calculations, RDA analyses, comparisons of individual species, differential abundance analysis of ASVs, analysis of decomposed leaf mass and bacterial density, code for creating the figures and performing the statistical analyses.
 
 Files for the sequence processing:
+
 4. sh_general_release_dynamic_04.02.2020_LR.fasta - customised database with long read sequences
 5. unite.taxa1_LR_rescued.csv - ITS taxonomic assignment including rescued taxonomy
 6. ITS.Fto_CT1.rds - R data file: phyloseq object of entire ITS dataset (DATASET 3)
@@ -22,6 +25,7 @@ Files for the sequence processing:
 9. B16S.Fto_CT1.rds - R data file: phyloseq object of 16S dataset (DATASET 5)
 
 Files for data analysis:
+
 10. Raw_Conidia_DE.csv - taxon abundance table for morphology identified aquatic hyphomycetes (DATASET 1)
 11. richness_conidia.csv - morphology aquatic hyphomycete richness - treatment means + CI (DATASET 1)
 
