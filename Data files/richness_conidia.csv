@@ -1,0 +1,7 @@
+﻿fungicide_treatment,cycle,richness.mean,richness.lower,richness.upper
+control,1,,,
+fungicide,1,,,
+control,2,8.6,7.27068775,9.92931225
+fungicide,2,6.8,6.066648628,7.533351372
+control,3,9.4,7.031766507,11.76823349
+fungicide,3,7.8,6.359726497,9.240273503
