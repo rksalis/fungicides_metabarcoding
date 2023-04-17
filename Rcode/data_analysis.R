@@ -66,16 +66,16 @@ install.packages("effects")
 install.packages("cowplot")
 install.packages("Rmisc")
 install.packages("reshape2")
-library(phyloseq); packageVersion("phyloseq")
-library(S4Vectors); packageVersion("S4Vectors")
-library(ggplot2); packageVersion("ggplot2")
-library(lsmeans); packageVersion("lsmeans")
-library(vegan); packageVersion("vegan")
-library(effects)
-library(cowplot)
-library(Rmisc)
-library(lme4)
-require(reshape2)
+library(phyloseq); packageVersion("phyloseq") #‘1.42.0’
+library(S4Vectors); packageVersion("S4Vectors") #‘0.36.2’
+library(ggplot2); packageVersion("ggplot2")#‘3.4.1’
+library(lsmeans); packageVersion("lsmeans")#‘2.30.0’
+library(vegan); packageVersion("vegan")#‘2.6.4’
+library(effects); packageVersion("effects")#‘4.2.2’
+library(cowplot); packageVersion("cowplot")#‘1.1.1’
+library(Rmisc); packageVersion("Rmisc")#‘1.5.1’
+library(lme4); packageVersion("lme4")#‘1.1.32’
+require(reshape2); packageVersion("reshape2")#‘1.4.4’
 
 
 theme_set(theme_bw())
