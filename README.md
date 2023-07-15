@@ -42,6 +42,6 @@ Files for data analysis:
 
 20. asv_table_B16S.Fto_CT1.csv - taxon abundance table for the 16S bacterial ASVs (DATASET 5)
 21. sample_data_B16S.Fto_CT1.csv - sample data for the 16S dataset (DATASET 5)
-22. asv_table_16S.Fto_CT1.ra_withsampledata.csv - relative 16S ASV abundances with sample data (DATASET 5)
+22. asv_table_B16S.Fto_CT1.ra_withsampledata.csv - relative 16S ASV abundances with sample data (DATASET 5)
 
 23. rawdata_DE.csv - raw data including bacterial density and leaf mass
