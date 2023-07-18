@@ -86,7 +86,7 @@ os_sys <- switch(Sys.info()[['sysname']],
                  Darwin  = {print("Darwin")}) 
 
 prj <- if (os_sys == "Windows") {
-  setwd("")
+  setwd("C:/Users/Schreiner/Seafile/1_Projects/2_Science Experiment/2_Paper DNA comparison/R code GitHub")
 } else {
   setwd("") 
 }
@@ -185,9 +185,9 @@ p4_AH_ITSspecies <- ggplot(ITSAHsp_richness, aes(x = fungicide_treatment)) +
 p4_AH_ITSspecies
 
 #1.5 - ASV richness 16S
-ASV_16S1 <- read.table(file.path(prj, "datafiles/asv_table_DFG.16S.Fto_CT1.wo.csv"), sep = ",",  header = TRUE,  na.strings = c("NR", "NA")) 
+ASV_16S1 <- read.table(file.path(prj, "datafiles/asv_table_B16S.Fto_CT1.csv"), sep = ",",  header = TRUE,  na.strings = c("NR", "NA")) 
 ASV_16S <- ASV_16S1[, -1]
-sampledata_16S <- read.table(file.path(prj, "datafiles/sample_data_DFG.16S.Fto_CT1.wo.csv"), sep = ",",  header = TRUE,  na.strings = c("NR", "NA")) 
+sampledata_16S <- read.table(file.path(prj, "datafiles/sample_data_B16S.Fto_CT1.csv"), sep = ",",  header = TRUE,  na.strings = c("NR", "NA")) 
 richness <- rowSums(ASV_16S > 0) 
 S<-specnumber(ASV_16S) 
 H <- diversity(ASV_16S) #shannon diversity
@@ -199,7 +199,7 @@ diversity <- data.frame(richness, S, H, simpson, inversimp, J, evenness)
 diversity
 ASV_16S_samp <- data.frame(sampledata_16S,diversity)
 ASV_16S_samp
-write.csv(ASV_16S_samp, file = "datafiles/16S_asv_richness.csv")
+write.csv(ASV_16S_samp, file = "datafiles/B16S_ASV_richness.csv")
 richness_16S <- group.CI(richness ~ fungicide_treatment + cycle, data=ASV_16S_samp, ci = 0.95)
 richness_16S
 richness_16S$fungicide_treatment <- gsub("TU-1", "fungicide", richness_16S$fungicide_treatment)
@@ -218,7 +218,7 @@ p5_richness16s
 
 ##### 2. Statistical analysis of richness #####
 #2.1 - analysis of Conidia species richness (morphology)
-data_all <- read.table(file.path(prj, "datafiles/richness_conidia_DE.csv"), header = TRUE, sep = ",", na.strings = c("NR", "NA")) 
+data_all <- read.table(file.path(prj, "datafiles/richness_conidia.csv"), header = TRUE, sep = ",", na.strings = c("NR", "NA")) 
 data_all
 mod1_Spec <- glm(Richness ~ fungicide_treatment + cycle + fungicide_treatment:cycle, data = data_all, family = 'poisson')
 par(mfrow = c(2, 2))
@@ -343,7 +343,7 @@ va_sc_AH <- scores(rda_ITSAH_4, choices = 1:2, scaling = scl, display = 'cn')
 
 #3.3 - RDA - ITS Aquatic Hyphomycetes (species level) 
 #read data
-data_ITS_AHsp <- read.table(file.path(prj, "datafiles/asv_table_ITS.Fto_CT1_AHsp.ra_withsampledata_ID.csv"), sep = ",",  header = TRUE,  na.strings = c("NR", "NA")) 
+data_ITS_AHsp <- read.table(file.path(prj, "datafiles/asv_table_ITS.Fto_CT1_AHsp.ra_withsampledata_IDs.csv"), sep = ",",  header = TRUE,  na.strings = c("NR", "NA")) 
 data_ITS_AHsp$replicate_num <- factor(data_ITS_AHsp$replicate_num)
 data_ITS_AHsp$cycle <- factor(data_ITS_AHsp$cycle)
 # recode fungicide order
@@ -399,7 +399,7 @@ va_sc_conid <- scores(rda_conid_DE_4, choices = 1:2, scaling = scl, display = 'c
 
 #3.5 - RDA - 16S Bacteria (ASV level) 
 #read data
-data_16S <- read.table(file.path(prj, "datafiles/asv_table_16S.Fto_CT1.ra_withsampledata.csv"), sep = ",",  header = TRUE,  na.strings = c("NR", "NA")) 
+data_16S <- read.table(file.path(prj, "datafiles/asv_table_B16S.Fto_CT1.ra_withsampledata.csv"), sep = ",",  header = TRUE,  na.strings = c("NR", "NA")) 
 data_16S$replicate_num <- factor(data_16S$replicate_num)
 data_16S$cycle <- factor(data_16S$cycle)
 # recode fungicide order
@@ -1007,6 +1007,7 @@ ggdraw() +
 
 # 7.2 - Figure 3: RDA plots
 #7.2.1 - ITS all (ASV level) RDA plot
+jpeg(filename="Figure_3_RDA.jpeg", width=15, height=21, pointsize=10, units = "cm", res = 800)
 par(mfrow = c(3, 2))
 p1 <- plot(rda_ITS_4, scaling = 'symmetric', type = 'n', xlab = paste(attributes(summary(rda_ITS_4)$cont$importance)$dimnames[[2]][1], " (", round(summary(rda_ITS_4)$cont$importance[2,1]*100), "% total variance)", sep=""), ylab = paste(attributes(summary(rda_ITS_4)$cont$importance)$dimnames[[2]][2], " (", round(summary(rda_ITS_4)$cont$importance[2,2]*100), "% total variance)", sep=""), main = "Entire ITS data set (ASVs)", cex.lab = 1.5, cex.axis = 1.5, cex.main = 1.5)
 cols <- c("#19A1BF", "#F00303") 
@@ -1015,6 +1016,10 @@ points(si_sc_ITS, col = cols[Fak_ITS$fungicide],  # colour by fungicide
        pch = pchs[Fak_ITS$cycle],      # shape by cycle
        cex = 1.5)
 ordispider(p1, interaction(Fak_ITS$cycle, Fak_ITS$fungicide), col = rep(cols, each = 3), label = F) # connect singe points per fungicide treatment and cycle
+legend("topright", legend = c(expression(paste("cycle ", italic('p'), " < 0.001")),
+           as.expression(bquote("45.6%"))) , bty = "n", cex=1.2)
+mtext("a)", side = 3, line = 1.4, adj = -0.2, cex = 1.2) # add letter to figure
+
 
 #7.2.2 - ITS AH (ASV level) RDA plot
 p2 <- plot(rda_ITSAH_4, scaling = 'symmetric', type = 'n', xlab = paste(attributes(summary(rda_ITSAH_4)$cont$importance)$dimnames[[2]][1], " (", round(summary(rda_ITSAH_4)$cont$importance[2,1]*100), "% total variance)", sep=""), ylab = paste(attributes(summary(rda_ITSAH_4)$cont$importance)$dimnames[[2]][2], " (", round(summary(rda_ITSAH_4)$cont$importance[2,2]*100), "% total variance)", sep=""), main = "Aquatic hyphomycetes (ITS ASVs)", cex.lab = 1.5, cex.axis = 1.5, cex.main = 1.5)
@@ -1024,6 +1029,9 @@ points(si_sc_AH, col = cols[Fak_ITS_AH$fungicide_treatment],  # colour by fungic
        pch = pchs[Fak_ITS_AH$cycle],      # shape by cycle
        cex = 1.5)
 ordispider(p2, interaction(Fak_ITS_AH$cycle, Fak_ITS_AH$fungicide_treatment), col = rep(cols, each = 3), label = F) # connect singe points per fungicide treatment and cycle
+legend("topright", legend = c(expression(paste("cycle ", italic('p'), " < 0.001")),
+                              as.expression(bquote("35.8%"))) , bty = "n", cex=1.2)
+mtext("b)", side = 3, line = 1.4, adj = -0.2, cex = 1.2) # add letter to figure
 
 #7.2.3 - ITS AH (species level) RDA plot
 p3 <- plot(rda_ITSAHsp_4, scaling = 'symmetric', type = 'n', xlab = paste(attributes(summary(rda_ITSAHsp_4)$cont$importance)$dimnames[[2]][1], " (", round(summary(rda_ITSAHsp_4)$cont$importance[2,1]*100), "% total variance)", sep=""), ylab = paste(attributes(summary(rda_ITSAHsp_4)$cont$importance)$dimnames[[2]][2], " (", round(summary(rda_ITSAHsp_4)$cont$importance[2,2]*100), "% total variance)", sep=""), main = "Aquatic hyphomycetes (ITS species)", cex.lab = 1.5, cex.axis = 1.5, cex.main = 1.5)
@@ -1033,6 +1041,9 @@ points(si_sc_AHsp, col = cols[Fak_ITS_AHsp$fungicide_treatment],  # colour by fu
        pch = pchs[Fak_ITS_AHsp$cycle],      # shape by cycle
        cex = 1.5)
 ordispider(p3, interaction(Fak_ITS_AHsp$cycle, Fak_ITS_AHsp$fungicide_treatment), col = rep(cols, each = 3), label = F) # connect singe points per fungicide treatment and cycle
+legend("topright", legend = c(expression(paste("cycle ", italic('p'), " < 0.001")),
+                              as.expression(bquote("52.9%"))) , bty = "n", cex=1.2)
+mtext("c)", side = 3, line = 1.4, adj = -0.2, cex = 1.2) # add letter to figure
 
 #7.2.4 Conidia RDA plot
 p4 <- plot(rda_conid_DE_4, scaling = 'symmetric', type = 'n', xlab = paste(attributes(summary(rda_conid_DE_4)$cont$importance)$dimnames[[2]][1], " (", round(summary(rda_conid_DE_4)$cont$importance[2,1]*100), "% total variance)", sep=""), ylab = paste(attributes(summary(rda_conid_DE_4)$cont$importance)$dimnames[[2]][2], " (", round(summary(rda_conid_DE_4)$cont$importance[2,2]*100), "% total variance)", sep=""), main = "Aquatic hyphomycetes (morph.)", cex.lab = 1.5, cex.axis = 1.5, cex.main = 1.5)
@@ -1042,6 +1053,9 @@ points(si_sc_conid, col = cols[Fak_conid_DE$fungicide_treatment],  # colour by f
        pch = pchs[Fak_conid_DE$cycle],      # shape by cycle
        cex = 1.5)
 ordispider(p4, interaction(Fak_conid_DE$cycle, Fak_conid_DE$fungicide_treatment), col = rep(cols, each = 2), label = F) # connect singe points per fungicide treatment and cycle
+legend("topright", legend = c(expression(paste("cycle ", italic('p'), " < 0.001")),
+                              as.expression(bquote("16.5%"))) , bty = "n", cex=1.2)
+mtext("d)", side = 3, line = 1.4, adj = -0.2, cex = 1.2) # add letter to figure
 
 #7.2.5 - bacteria 16S (ASV level) RDA plot
 p5 <- plot(rda_16S_4, scaling = 'symmetric', type = 'n', xlab = paste(attributes(summary(rda_16S_4)$cont$importance)$dimnames[[2]][1], " (", round(summary(rda_16S_4)$cont$importance[2,1]*100), "% total variance)", sep=""), ylab = paste(attributes(summary(rda_16S_4)$cont$importance)$dimnames[[2]][2], " (", round(summary(rda_16S_4)$cont$importance[2,2]*100), "% total variance)", sep=""), main = "Bacteria (16S)", cex.lab = 1.5, cex.axis = 1.5, cex.main = 1.5)
@@ -1052,6 +1066,11 @@ points(si_sc_16S, col = cols[Fak_16S$fungicide],  # colour by fungicide
        cex = 1.5)
 ordispider(p5, interaction(Fak_16S$cycle, Fak_16S$fungicide), col = rep(cols, each = 3), label = F) # connect singe points per fungicide treatment and cycle
 legend('topleft', legend = c("control", "fungicide", paste0('cycle ', levels(Fak_16S$cycle))), col = c(cols, 'grey20', 'grey20', 'grey20'), pch = c(rep(16, 2), 15, 16, 17), bty = "n", cex=1.3)
+legend("topright", legend = c(expression(paste("cycle ", italic('p'), " < 0.001")),
+                              as.expression(bquote("48.7%"))) , bty = "n", cex=1.2)
+mtext("e)", side = 3, line = 1.4, adj = -0.2, cex = 1.2) # add letter to figure
+
+dev.off()
 
 # 7.3 - Figure S7: Aq. Hyphomycetes taxa plots
 ggdraw() +
@@ -1063,5 +1082,3 @@ ggdraw() +
   draw_plot(p2_conidia_At, x = 0.25, y = 0, width = 0.25, height = 0.5) +
   draw_plot(p5_conidia_Te, x = 0.5, y = 0, width = 0.25, height = 0.5) +
   draw_plot(p6_conidia_Tm, x = 0.75, y = 0, width = 0.25, height = 0.5)
-
-
