@@ -1,0 +1,15 @@
+ASV,baseMean,log2FoldChange,lfcSE,stat,pvalue,padj,Kingdom,Phylum,Class,Order,Family,Genus,Species,ID
+ASV12,1472.594237,28.21780944,3.026220442,9.324439503,1.12E-20,8.93E-19,k__Fungi,p__Ascomycota,c__Leotiomycetes,o__Helotiales,f__Leotiaceae,g__Alatospora,s__acuminata,Alatospora acuminata
+ASV17,786.1281736,27.32148666,3.026249915,9.028166023,1.75E-19,6.98E-18,k__Fungi,p__Ascomycota,c__Leotiomycetes,o__Helotiales,f__Leotiaceae,g__Alatospora,s__acuminata,Alatospora acuminata
+ASV14,790.5462029,27.03848401,3.026249549,8.93465115,4.08E-19,1.09E-17,k__Fungi,p__Ascomycota,c__Leotiomycetes,o__Helotiales,f__Leotiaceae,g__Alatospora,s__acuminata,Alatospora acuminata
+ASV32,518.7672778,26.75850427,3.026282498,8.842037809,9.40E-19,1.50E-17,k__Fungi,p__Ascomycota,c__Leotiomycetes,o__Helotiales,f__Leotiaceae,g__Alatospora,s__acuminata,Alatospora acuminata
+ASV33,525.6756649,26.77415113,3.02628124,8.847211812,8.97E-19,1.50E-17,k__Fungi,p__Ascomycota,c__Leotiomycetes,o__Helotiales,f__Leotiaceae,g__Alatospora,s__acuminata,Alatospora acuminata
+ASV22,490.912207,26.68160152,3.026287935,8.816610349,1.18E-18,1.57E-17,k__Fungi,p__Ascomycota,c__Leotiomycetes,o__Helotiales,f__Leotiaceae,g__Alatospora,s__acuminata,Alatospora acuminata
+ASV50,436.5330383,26.51706752,3.026300547,8.762205573,1.91E-18,2.19E-17,k__Fungi,p__Ascomycota,c__Leotiomycetes,o__Helotiales,f__Leotiaceae,g__Alatospora,s__acuminata,Alatospora acuminata
+ASV26,303.0524279,26.00730175,3.026350687,8.593618006,8.43E-18,8.43E-17,k__Fungi,p__Ascomycota,c__Leotiomycetes,o__Helotiales,f__Leotiaceae,g__Alatospora,s__acuminata,Alatospora acuminata
+ASV37,235.3478605,25.65162399,3.026397868,8.475958917,2.33E-17,2.07E-16,k__Fungi,p__Ascomycota,c__Leotiomycetes,o__Helotiales,f__Leotiaceae,g__Alatospora,s__acuminata,Alatospora acuminata
+ASV43,158.9315663,25.10627137,3.026499367,8.295482115,1.08E-16,8.65E-16,k__Fungi,p__Ascomycota,c__Leotiomycetes,o__Helotiales,f__Leotiaceae,g__Alatospora,s__acuminata,Alatospora acuminata
+ASV188,130.9784343,24.82139348,3.026566128,8.201173356,2.38E-16,1.73E-15,k__Fungi,p__Ascomycota,c__Leotiomycetes,o__Helotiales,f__Leotiaceae,g__Alatospora,s__acuminata,Alatospora acuminata
+ASV549,23.07944518,20.94632526,3.028336453,6.91677612,4.62E-12,3.08E-11,k__Fungi,p__Ascomycota,c__Dothideomycetes,o__Pleosporales,f__Sporormiaceae,g__Preussia,s__dubia,Preussia dubia
+ASV204,264.728337,11.91767897,3.026374442,3.937939341,8.22E-05,0.00050575,k__Fungi,p__Ascomycota,c__Leotiomycetes,o__Helotiales,f__Helotiaceae,g__Hymenoscyphus,s__tetracladius,Hymenoscyphus tetracladius
+ASV109,14.8120152,7.757643418,2.426175479,3.197478288,0.001386348,0.007921991,k__Fungi,p__Ascomycota,c__Dothideomycetes,o__Pleosporales,f__Didymellaceae,g__Epicoccum,NA,Epicoccum sp.

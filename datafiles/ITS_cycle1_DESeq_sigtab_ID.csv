@@ -1,0 +1,10 @@
+ASV,baseMean,log2FoldChange,lfcSE,stat,pvalue,padj,Kingdom,Phylum,Class,Order,Family,Genus,Species,ID
+ASV73,396.3407687,26.13388535,3.026293225,8.635609112,5.84E-18,3.17E-15,k__Fungi,p__Ascomycota,c__Leotiomycetes,o__Helotiales,f__Hyaloscyphaceae,g__Tetrachaetum,s__elegans,Tetrachaetum elegans
+ASV93,163.0248458,-24.87693495,3.026370599,-8.220055719,2.03E-16,5.51E-14,k__Fungi,p__Ascomycota,c__Leotiomycetes,o__Helotiales,f__Leotiaceae,g__Alatospora,s__acuminata,Alatospora acuminata
+ASV130,113.1633349,-24.65934183,3.026450509,-8.147941542,3.70E-16,6.69E-14,k__Fungi,p__Ascomycota,c__Leotiomycetes,o__Helotiales,f__Leotiaceae,g__Alatospora,s__acuminata,Alatospora acuminata
+ASV244,79.07208373,-23.10093734,3.026563179,-7.632729263,2.30E-14,3.11E-12,k__Fungi,p__Ascomycota,c__Leotiomycetes,o__Helotiales,f__Helotiaceae,g__Ombrophila,NA,Ombrophila sp.
+ASV271,76.39077903,-22.84080241,3.026576433,-7.54674561,4.46E-14,4.84E-12,k__Fungi,p__Ascomycota,c__Leotiomycetes,o__Helotiales,f__Helotiaceae,g__Tetracladium,NA,Tetracladium sp.
+ASV170,25.77287224,-22.63858116,3.027336972,-7.478051294,7.54E-14,5.84E-12,k__Fungi,p__Ascomycota,c__Leotiomycetes,o__Helotiales,f__Leotiaceae,g__Alatospora,s__acuminata,Alatospora acuminata
+ASV208,26.38020828,-22.67753115,3.027310308,-7.490983363,6.84E-14,5.84E-12,k__Fungi,p__Ascomycota,NA,NA,NA,NA,NA,Ascomycota sp.
+ASV518,21.666828,-22.41319027,3.027552629,-7.403072058,1.33E-13,9.02E-12,k__Fungi,p__Ascomycota,c__Leotiomycetes,o__Helotiales,f__Helotiaceae,g__Filosporella,s__annelidica,Filosporella annelidica
+ASV119,360.2576837,12.21587702,2.198459942,5.556561109,2.75E-08,1.66E-06,k__Fungi,p__Ascomycota,c__Leotiomycetes,o__Helotiales,f__Leotiaceae,g__Alatospora,s__acuminata,Alatospora acuminata

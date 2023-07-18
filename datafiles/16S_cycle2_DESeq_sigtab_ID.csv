@@ -1,0 +1,3 @@
+ASV,baseMean,log2FoldChange,lfcSE,stat,pvalue,padj,Kingdom,Phylum,Class,Order,Family,Genus,Species,ID
+ASV168,23.05661112,-22.66605546,3.028153396,-7.485108082,7.15E-14,6.45E-11,Bacteria,Proteobacteria,Gammaproteobacteria,Betaproteobacteriales,Burkholderiaceae,Rhizobacter,NA,Rhizobacter sp.
+ASV613,26.09515753,22.6999219,3.02766438,7.497502712,6.50E-14,6.45E-11,Bacteria,Bacteroidetes,Bacteroidia,Flavobacteriales,Flavobacteriaceae,Flavobacterium,NA,Flavobacterium sp.

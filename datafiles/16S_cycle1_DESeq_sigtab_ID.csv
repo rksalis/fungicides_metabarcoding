@@ -1,0 +1,9 @@
+ASV,baseMean,log2FoldChange,lfcSE,stat,pvalue,padj,Kingdom,Phylum,Class,Order,Family,Genus,Species,ID
+ASV347,31.90451618,-23.29598379,3.027475445,-7.694854744,1.42E-14,7.17E-12,Bacteria,Spirochaetes,Spirochaetia,Spirochaetales,Spirochaetaceae,Spirochaeta_2,NA,Spirochaeta sp.
+ASV450,28.36369235,-23.12960036,3.027635772,-7.639492362,2.18E-14,7.17E-12,Bacteria,Proteobacteria,Gammaproteobacteria,Betaproteobacteriales,Burkholderiaceae,NA,NA,Burkholderiaceae sp.
+ASV114,25.86971623,21.67331605,3.027464249,7.158900739,8.13E-13,1.78E-10,Bacteria,Proteobacteria,Gammaproteobacteria,Pseudomonadales,Pseudomonadaceae,Pseudomonas,NA,Pseudomonas sp.
+ASV494,48.78949284,8.963756327,1.978675386,4.530180337,5.89E-06,0.000969454,Bacteria,Proteobacteria,Gammaproteobacteria,Enterobacteriales,Enterobacteriaceae,Klebsiella,NA,Klebsiella sp.
+ASV28,854.3486354,3.345550956,0.774147123,4.321595803,1.55E-05,0.002038547,Bacteria,Proteobacteria,Gammaproteobacteria,Enterobacteriales,Enterobacteriaceae,NA,NA,Enterobacteriaceae sp.
+ASV1214,15.56127599,7.315646298,1.767475182,4.139037636,3.49E-05,0.003824798,Bacteria,Bacteroidetes,Bacteroidia,Chitinophagales,Chitinophagaceae,NA,NA,Chitinophagaceae sp.
+ASV1213,19.66958243,-7.831282541,1.930257847,-4.057117318,4.97E-05,0.00467012,Bacteria,Proteobacteria,Gammaproteobacteria,Betaproteobacteriales,Burkholderiaceae,Hydrogenophaga,atypica,Hydrogenophaga atypica
+ASV7,5103.124632,-2.721586874,0.686872642,-3.962287488,7.42E-05,0.006105835,Bacteria,Proteobacteria,Gammaproteobacteria,Betaproteobacteriales,Burkholderiaceae,Rhizobacter,NA,Rhizobacter sp.

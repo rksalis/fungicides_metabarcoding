@@ -1,0 +1,3 @@
+ASV,baseMean,log2FoldChange,lfcSE,stat,pvalue,padj,Kingdom,Phylum,Class,Order,Family,Genus,Species,ID
+ASV486,57.06417822,-24.23274676,3.026900955,-8.005794415,1.19E-15,1.98E-12,Bacteria,Proteobacteria,Alphaproteobacteria,Rhizobiales,Pleomorphomonadaceae,Ancalomicrobium,NA,Ancalomicrobium sp.
+ASV181,45.68649874,-23.92952416,3.027078304,-7.905155321,2.68E-15,2.23E-12,Bacteria,Proteobacteria,Gammaproteobacteria,Betaproteobacteriales,Rhodocyclaceae,Uliginosibacterium,NA,Uliginosibacterium sp.
