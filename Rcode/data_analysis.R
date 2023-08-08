@@ -52,7 +52,8 @@
     #7.2.3 - ITS AH (species level) RDA plot
     #7.2.4 - Conidia RDA plot
     #7.2.5 - bacteria 16S (ASV level) RDA plot
-  #7.3 - Figure S7: Aquatic Hyphomycetes taxa plots
+  #7.3 - Figure S8: Aquatic Hyphomycetes taxa plots
+  #7.4 - Figure S9: Fungal groups and trophic modes
 
 #install/load packages
 if (!requireNamespace("BiocManager", quietly = TRUE))
@@ -76,6 +77,7 @@ library(cowplot); packageVersion("cowplot")#‘1.1.1’
 library(Rmisc); packageVersion("Rmisc")#‘1.5.1’
 library(lme4); packageVersion("lme4")#‘1.1.32’
 require(reshape2); packageVersion("reshape2")#‘1.4.4’
+library(dplyr); packageVersion("dplyr")#‘1.1.2’
 
 
 theme_set(theme_bw())
@@ -88,15 +90,17 @@ os_sys <- switch(Sys.info()[['sysname']],
 prj <- if (os_sys == "Windows") {
   setwd("C:/Users/Schreiner/Seafile/1_Projects/2_Science Experiment/2_Paper DNA comparison/R code GitHub")
 } else {
-  setwd("") 
+  setwd("/Users/romana/Documents/fungicides_metabarcoding-main") 
 }
 
 prj <- getwd()
 
 ##### 1. Species richness calculations and plots #####
 #1.1 - Species richness conidia morphology
-richness_conidia <- read.table(file.path(prj, "datafiles/richness_conidia.csv"), sep = ",",  header = TRUE, na.strings = c("NR", "NA")) 
+richness_conidia_DE <- read.table(file.path(prj, "datafiles/richness_conidia_DE.csv"), sep = ",",  header = TRUE, na.strings = c("NR", "NA")) 
+richness_conidia <- group.CI(richness~ fungicide_treatment+cycle, data=richness_conidia_DE, ci = 0.95)
 richness_conidia
+write.csv(richness_conidia, file = "datafiles/richness_conidia.csv")
 p1_AH_Morphspecies <- ggplot(richness_conidia, aes(x = fungicide_treatment)) + geom_pointrange(aes(y = richness.mean, 
                                                                                            ymin = richness.lower, ymax = richness.upper, shape= fungicide_treatment))+ facet_wrap(~cycle)+ 
   ylab("Species richness")+ xlab("")+ ylim(0,20)+ ggtitle("a) Aquatic Hyphomycetes (morph. species)")+ theme_classic()+ 
@@ -107,7 +111,6 @@ p1_AH_Morphspecies
 
 #1.2 - ITS ASV richness all
 ITSall_ASV1 <- read.table(file.path(prj, "datafiles/asv_table_ITS.Fto_CT1.csv"), sep = ",",  header = TRUE,  na.strings = c("NR", "NA")) 
-# VS: I adjustes the read in of files that they can stay in the separate folder
 ITSall_ASV <- ITSall_ASV1[, -1]
 ITSall_sampledata <- read.table(file.path(prj, "datafiles/sample_data_ITS.Fto_CT1.csv"), sep = ",",  header = TRUE,  na.strings = c("NR", "NA")) 
 richness <- rowSums(ITSall_ASV > 0) 
@@ -218,7 +221,7 @@ p5_richness16s
 
 ##### 2. Statistical analysis of richness #####
 #2.1 - analysis of Conidia species richness (morphology)
-data_all <- read.table(file.path(prj, "datafiles/richness_conidia.csv"), header = TRUE, sep = ",", na.strings = c("NR", "NA")) 
+data_all <- read.table(file.path(prj, "datafiles/richness_conidia_DE.csv"), header = TRUE, sep = ",", na.strings = c("NR", "NA")) 
 data_all
 mod1_Spec <- glm(Richness ~ fungicide_treatment + cycle + fungicide_treatment:cycle, data = data_all, family = 'poisson')
 par(mfrow = c(2, 2))
@@ -1072,7 +1075,7 @@ mtext("e)", side = 3, line = 1.4, adj = -0.2, cex = 1.2) # add letter to figure
 
 dev.off()
 
-# 7.3 - Figure S7: Aq. Hyphomycetes taxa plots
+# 7.3 - Figure S8: Aq. Hyphomycetes taxa plots
 ggdraw() +
   draw_plot(p1_ITS_Aa, x = 0, y = 0.5, width = 0.25, height = 0.5) +
   draw_plot(p2_ITS_At, x = 0.25, y = 0.5, width = 0.25, height = 0.5) +
@@ -1082,3 +1085,134 @@ ggdraw() +
   draw_plot(p2_conidia_At, x = 0.25, y = 0, width = 0.25, height = 0.5) +
   draw_plot(p5_conidia_Te, x = 0.5, y = 0, width = 0.25, height = 0.5) +
   draw_plot(p6_conidia_Tm, x = 0.75, y = 0, width = 0.25, height = 0.5)
+
+# 7.4 - Figure S9: Fungal groups and trophic modes
+df_fun <- read.csv("datafiles/asvtax_table_ITS.Fto_CT1_sp.guilds.prop.csv")
+glimpse(df_fun)
+
+df_fun_categories1 <- df_fun %>% group_by(RS.notes) %>% summarise_at(vars(starts_with('NG')), sum)
+df_fun_categories <- df_fun_categories1[, -1]
+rownames(df_fun_categories) <- df_fun_categories1$RS.notes
+df_fun_categories_t <- t(df_fun_categories)
+df_fun_categories_t <- as.data.frame(df_fun_categories_t)
+glimpse(df_fun_categories_t)
+df_fun_categories_t$Other <- rowSums(cbind(df_fun_categories_t$V1, df_fun_categories_t$'Pathotroph-Saprotroph', 
+                                           df_fun_categories_t$'Pathotroph-Saprotroph-Symbiotroph', 
+                                           df_fun_categories_t$'Pathotroph-Symbiotroph',
+                                           df_fun_categories_t$'Saprotroph-Symbiotroph'),na.rm=T)
+#import sample data
+df_meta1 <- read.csv("datafiles/sample_data_ITS.Fto_CT1.csv")
+df_meta <- df_meta1[, -1]
+rownames(df_meta) <- df_meta1$X
+df_meta <- df_meta[ , c('fungicide_treatment', 'cycle')]
+
+df_fun_cat_all <- cbind(df_meta, df_fun_categories_t$'Aquatic-Hyphomycete', df_fun_categories_t$Chytrid, df_fun_categories_t$'Pathotroph', df_fun_categories_t$'Saprotroph', df_fun_categories_t$'Symbiotroph', df_fun_categories_t$Other)
+colnames(df_fun_cat_all) <- c('treatment', 'cycle','Aquatic_Hyphomycete','Chytrid','Pathotroph','Saprotroph','Symbiotroph','Other' )
+df_fun_cat_all$cycle <- factor(df_fun_cat_all$cycle)
+glimpse(df_fun_cat_all)
+df_fun_cat_all <- df_fun_cat_all %>% mutate_if(is.numeric, ~ . * 100)#convert to percentage
+df_fun_cat_all_l <- melt(df_fun_cat_all, id.vars=1:2)
+df_fun_cat_all_l
+
+#stats
+mod1_AH <- lm(Aquatic_Hyphomycete~ treatment + cycle  + treatment:cycle, data = df_fun_cat_all)
+par(mfrow = c(2, 2))
+plot(mod1_AH)
+drop1(mod1_AH, test = 'F') #not significant
+mod2_AH <- lm(Aquatic_Hyphomycete~ treatment + cycle, data = df_fun_cat_all)
+par(mfrow = c(2, 2))
+plot(mod2_AH)
+drop1(mod2_AH, test = 'F')#treatment and cycle significant
+mod1_C <- lm(Chytrid~ treatment + cycle  + treatment:cycle, data = df_fun_cat_all)
+par(mfrow = c(2, 2))
+plot(mod1_C)
+drop1(mod1_C, test = 'F') #not significant
+mod2_C <- lm(Chytrid~ treatment + cycle, data = df_fun_cat_all)
+par(mfrow = c(2, 2))
+plot(mod2_C)
+drop1(mod2_C, test = 'F') #not significant
+mod1_PA <- lm(Pathotroph~ treatment + cycle  + treatment:cycle, data = df_fun_cat_all)
+par(mfrow = c(2, 2))
+plot(mod1_PA)
+drop1(mod1_PA, test = 'F') #not significant
+mod2_PA <- lm(Pathotroph~ treatment + cycle, data = df_fun_cat_all)
+par(mfrow = c(2, 2))
+plot(mod2_PA)
+drop1(mod2_PA, test = 'F')# not significant
+mod1_SA <- lm(Saprotroph~ treatment + cycle  + treatment:cycle, data = df_fun_cat_all)
+par(mfrow = c(2, 2))
+plot(mod1_SA)
+drop1(mod1_SA, test = 'F') #not significant
+mod2_SA <- lm(Saprotroph~ treatment + cycle, data = df_fun_cat_all)
+par(mfrow = c(2, 2))
+plot(mod2_SA)
+drop1(mod2_SA, test = 'F')#cycle significant
+mod1_SY <- lm(Symbiotroph~ treatment + cycle  + treatment:cycle, data = df_fun_cat_all)
+par(mfrow = c(2, 2))
+plot(mod1_SY)
+drop1(mod1_SY, test = 'F') #not significant
+mod2_SY <- lm(Symbiotroph~ treatment + cycle, data = df_fun_cat_all)
+par(mfrow = c(2, 2))
+plot(mod2_SY)
+drop1(mod2_SY, test = 'F')#not significant
+mod1_O <- lm(Other~ treatment + cycle  + treatment:cycle, data = df_fun_cat_all)
+par(mfrow = c(2, 2))
+plot(mod1_O)
+drop1(mod1_O, test = 'F') #not significant
+mod2_O <- lm(Other~ treatment + cycle, data = df_fun_cat_all)
+par(mfrow = c(2, 2))
+plot(mod2_O)
+drop1(mod2_O, test = 'F')#treatment and cycle significant
+
+# Fig s9
+ggplot(df_fun_cat_all_l, aes(x=cycle, y=value, fill=treatment)) + facet_wrap(~variable, scales = "free")+
+  geom_boxplot() +  theme_bw() + scale_fill_manual(values = c( "#0072B2","orange"),labels=c("control", "fungicide"))+
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"))
+g1 <- ggplot(df_fun_cat_all, aes(x=cycle, y=Aquatic_Hyphomycete, fill=treatment)) +
+  geom_boxplot()  +  theme_bw()  + scale_fill_manual(values = c( "#0072B2","orange"),labels=c("control", "fungicide"))+
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"),legend.position="none")+
+  annotate("text", x=3.5, y=42, label= "treatment: italic(p) == 0.042",
+           col="black", size=3, parse=TRUE, hjust=1) +
+  annotate("text", x=3.5, y=35, label= "cycle: italic(p) < 0.001",
+           col="black", size=3, parse=TRUE, hjust=1) +
+  xlab("") + ylab("Percent (%)") + ggtitle("Aquatic Hyphomycetes")+
+  theme(plot.title = element_text(hjust = 0.5))
+g2 <- ggplot(df_fun_cat_all, aes(x=cycle, y=Chytrid, fill=treatment, colors)) +
+  geom_boxplot()  +  theme_bw()  + scale_fill_manual(values = c( "#0072B2","orange"),labels=c("control", "fungicide"))+
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"),legend.position="none") +
+  xlab("") + ylab("") + ggtitle("Chytrids")+
+  theme(plot.title = element_text(hjust = 0.5))
+g3 <- ggplot(df_fun_cat_all, aes(x=cycle, y=Pathotroph, fill=treatment)) +
+  geom_boxplot()  +  theme_bw()  + scale_fill_manual(values = c( "#0072B2","orange"),labels=c("control", "fungicide"))+
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"),legend.position = c(.75, .7))+
+  xlab("") +  ylab("") + ggtitle("Pathotrophs")+
+  theme(plot.title = element_text(hjust = 0.5))
+g4 <- ggplot(df_fun_cat_all, aes(x=cycle, y=Saprotroph, fill=treatment)) +
+  geom_boxplot()  +  theme_bw() + scale_fill_manual(values = c( "#0072B2","orange"),labels=c("control", "fungicide"))+
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"),legend.position="none") +
+  annotate("text", x=3.5, y=45, label= "cycle: italic(p) < 0.001",
+           col="black", size=3, parse=TRUE, hjust=1) +
+  xlab("") +  ylab("Percent (%)") + ggtitle("Saprotrophs")+
+  theme(plot.title = element_text(hjust = 0.5))
+g5 <- ggplot(df_fun_cat_all, aes(x=cycle, y=Symbiotroph, fill=treatment)) +
+  geom_boxplot()  +  theme_bw() + scale_fill_manual(values = c( "#0072B2","orange"),labels=c("control", "fungicide"))+
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"),legend.position="none")+
+  xlab("cycle") +  ylab("") + ggtitle("Symbiotrophs")+
+  theme(plot.title = element_text(hjust = 0.5))
+g6 <- ggplot(df_fun_cat_all, aes(x=cycle, y=Other, fill=treatment)) +
+  geom_boxplot()  +  theme_bw() + scale_fill_manual(values = c( "#0072B2","orange"),labels=c("control", "fungicide"))+
+  theme(panel.grid.major = element_blank(),
+        panel.grid.minor = element_blank(), axis.line = element_line(colour = "black"),legend.position="none") +
+  annotate("text", x=3.5, y=15, label= "treatment: italic(p) == 0.032",
+           col="black", size=3, parse=TRUE, hjust=1) +
+  annotate("text", x=3.5, y=13.5, label= "cycle: italic(p) < 0.001",
+           col="black", size=3, parse=TRUE, hjust=1) +
+  xlab("") +  ylab("") + ggtitle("Other")+
+  theme(plot.title = element_text(hjust = 0.5))
+multiplot(g1,g2,g3,g4,g5,g6,layout=matrix(c(1,4,2,5,3,6),nrow=2))
