@@ -1,6 +1,6 @@
 # fungicides_metabarcoding
 
-A repository containing the data and R code for the associated paper titled "Effects of fungicides on aquatic fungi and bacteria: a comparison of morphological and molecular approaches from a microcosm experiment", currently in submission.
+A repository containing the data and R code for the associated paper titled "Effects of fungicides on aquatic fungi and bacteria: a comparison of morphological and molecular approaches from a microcosm experiment", published in Environmental Sciences Europe (2023) 35, 62. 10.1186/s12302-023-00768-7.
 
 Created by Romana K. Salis
 
